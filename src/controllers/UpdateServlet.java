@@ -42,9 +42,6 @@ public class UpdateServlet extends HttpServlet {
 
             Task t = em.find(Task.class, (Integer) (request.getSession().getAttribute("task_id")));
 
-            String title = request.getParameter("title");
-            t.setTitle(title);
-
             String content = request.getParameter("content");
             t.setContent(content);
 
@@ -72,14 +69,6 @@ public class UpdateServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/index");
             }
 
-            em.getTransaction().begin();
-            em.getTransaction().commit();
-            request.getSession().setAttribute("flush", "更新が完了しました。");
-            em.close();
-
-            request.getSession().removeAttribute("task_id");
-
-            response.sendRedirect(request.getContextPath() + "/index");
         }
     }
 }
